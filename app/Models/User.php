@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -44,5 +45,35 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function internshipsAsStudent()
+    {
+        return $this->hasMany(Internship::class, 'student_id');
+    }
+
+    public function internshipsAsSupervisor()
+    {
+        return $this->hasMany(Internship::class, 'supervisor_id');
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(Report::class, 'student_id');
+    }
+
+    public function leaves()
+    {
+        return $this->hasMany(Leave::class, 'student_id');
+    }
+
+    public function evaluationsGiven()
+    {
+        return $this->hasMany(Evaluation::class, 'supervisor_id');
+    }
+
+    public function userNotifications()
+    {
+        return $this->hasMany(UserNotification::class, 'user_id');
     }
 }

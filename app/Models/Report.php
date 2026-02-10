@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Report extends Model
+{
+    protected $fillable = [
+        'internship_id',
+        'student_id',
+        'report_title',
+        'report_content',
+        'submitted_at',
+        'status',
+    ];
+
+    protected $casts = [
+        'submitted_at' => 'datetime',
+    ];
+
+    public function internship()
+    {
+        return $this->belongsTo(Internship::class);
+    }
+
+    public function student()
+    {
+        return $this->belongsTo(User::class, 'student_id');
+    }
+}
